@@ -32,11 +32,16 @@ if ($_SERVER['REQUEST_METHOD']== 'POST'){
             header('location: /login');
             exit();
         }else {
-            $user = $db->query('insert into users (id, email, password) values (:id, :email,:password)',[
-                'id'=> 3,
+            $db->query('insert into users (id, email, password) values (:id, :email,:password)',[
+                'id'=> 7,
                 'email'=> $_POST['email'],
                 'password'=> $_POST['password'],
-            ]);
+                ])->get();
+            
+            $user = $db->query('select id from users where email = :email',[
+                'email'=> $_POST['email']
+            ])->get();
+            
             $_SESSION['id']= $user['id'];
             $_SESSION['email']= $_POST['email'];
             header('location: /');
