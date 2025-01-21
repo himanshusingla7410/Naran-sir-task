@@ -1,14 +1,13 @@
 <?php
 
 use core\Database;
+use core\App;
 use core\Validator;
 
-require('core/Database.php');
 require('core/Validator.php');
-$config = require('config.php');
-$heading = 'Edit Note';
 
-$db =  new Database($config['database']);
+$db = App::resolver(Database::class);
+$heading = 'Edit Note';
 
 authorize($_SESSION['id']);
 

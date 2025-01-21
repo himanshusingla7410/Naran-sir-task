@@ -1,6 +1,13 @@
 <?php
 
 namespace core;
+use core\middleware\Auth;
+use core\middleware\Guest;
+use core\middleware\Middleware;
+
+require('core/middleware/Middleware.php');
+require('core/middleware/Auth.php');
+require('core/middleware/Guest.php');
 
 class Router{
 
@@ -43,9 +50,10 @@ class Router{
 
     public function only($value){
 
-        $this->routes[]=[
-            'middleware'=> $value
-        ];
+        $this->routes[array_key_last($this->routes)]['middleware'] = $value;
+
+        return $this;
+       
     }
 
 
@@ -54,6 +62,11 @@ class Router{
         foreach( $this->routes as $route){ 
 
             if ($route['uri'] == $uri && $route['method'] == strtoupper($method)){
+
+                if ($route['middleware']){
+                    Middleware::handle($route['middleware']);
+                }
+
                 return require($route['controller']);
             }       
         }
@@ -62,7 +75,7 @@ class Router{
 
     public function abort($code=404){
 
-        http_response_code();
+        http_response_code($code);
 
         return require ("views/{$code}.php");
     }

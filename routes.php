@@ -3,16 +3,16 @@
 
 
 $router->get('/','controllers/home.php' );
-$router->get('/notes','controllers/notes/index.php' );
-$router->get('/note/create','controllers/notes/create.php' );
+$router->get('/notes','controllers/notes/index.php' )->only('auth');
+$router->get('/note/create','controllers/notes/create.php' )->only('auth');
 $router->post('/note/create','controllers/notes/create.php' );
-$router->get('/note','controllers/notes/show.php' );
+$router->get('/note','controllers/notes/show.php' )->only('auth');
 $router->delete('/note','controllers/notes/destroy.php' );
-$router->get('/note/edit','controllers/notes/edit.php' );
+$router->get('/note/edit','controllers/notes/edit.php' )->only('auth');
 
 $router->patch('/note/edit','controllers/notes/update.php' );
 
-$router->get('/register','controllers/registeration/create.php' );
+$router->get('/register','controllers/registeration/create.php' )->only('guest');
 $router->post('/register','controllers/registeration/store.php' );
 
 $router->get('/login','controllers/sessions/create.php' );

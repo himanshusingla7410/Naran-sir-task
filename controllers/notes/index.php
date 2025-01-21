@@ -1,14 +1,17 @@
 <?php
 
 use core\Database;
+use core\App;
 
-require('core/Database.php');
-$config = require('config.php');
+// require('core/Database.php');
+// $config = require('config.php');
+
+// $db =  new Database($config['database']);
+
+$db=App::resolver(Database::class);
 $heading = 'My Notes';
 
-$connection =  new Database($config['database']);
-
-$notes = $connection->query('select * from notes where user_id = :user_id',[
+$notes = $db->query('select * from notes where user_id = :user_id',[
     'user_id' => $_SESSION['id']
 ])->get();
 

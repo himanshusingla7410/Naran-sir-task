@@ -1,15 +1,15 @@
 <?php
 
 use core\Database;
+use core\App;
 
-require('core/Database.php');
-$config = require('config.php');
 $heading = 'My Note';
 
-$connection =  new Database($config['database']);
+$db = App::resolver(Database::class);
 
 
-$note = $connection->query('select * from notes where id = :id', ['id' => $_GET['id']])->FindOrAbort();
+
+$note = $db->query('select * from notes where id = :id', ['id' => $_GET['id']])->FindOrAbort();
 
 
 

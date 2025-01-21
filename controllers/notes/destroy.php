@@ -1,11 +1,10 @@
 <?php
 
 use core\Database;
+use core\App;
 
-require('core/Database.php');
-$config = require('config.php');
+$db = App::resolver(Database::class);
 
-$db =  new Database($config['database']);
 
 
 $db->query('select * from notes where id = :id', ['id' => $_POST['id']])->FindOrAbort();

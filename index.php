@@ -1,8 +1,9 @@
 <?php
 require('core/functions.php');
 use core\Router;
-require('core/Router.php');
 
+require('core/Router.php');
+require('core/bootstrap.php');
 session_start();
 
 

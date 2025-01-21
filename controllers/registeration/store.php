@@ -3,13 +3,12 @@
 
 use core\Database;
 use core\Validator;
+use core\App;
 
-require('core/Database.php');
 require('core/Validator.php');
-$config = require('config.php');
 $heading = 'Edit Note';
 
-$db =  new Database($config['database']);
+$db = App::resolver(Database::class);
 
 if ($_SERVER['REQUEST_METHOD']== 'POST'){
 

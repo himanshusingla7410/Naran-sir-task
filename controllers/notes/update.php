@@ -2,13 +2,12 @@
 
 use core\Database;
 use core\Validator;
+use core\App;
 
-require('core/Database.php');
 require('core/Validator.php');
-$config = require('config.php');
 $heading = 'Edit Note';
 
-$db =  new Database($config['database']);
+$db = App::resolver(Database::class);
 
 
 $note = $db->query('select * from notes where id = :id', ['id' => $_POST['id']])->FindOrAbort();
